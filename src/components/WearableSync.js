@@ -4,28 +4,16 @@ import React, { useState, useEffect } from "react";
 import { Bluetooth, RefreshCw, CheckCircle2, AlertCircle, Watch, Smartphone } from "lucide-react";
 import canvasConfetti from "canvas-confetti";
 
-interface WearableSyncProps {
-  onSyncComplete: (hrv: number, rhr: number, sleep: number) => void;
-  isSynced: boolean;
-}
-
-interface Device {
-  id: string;
-  name: string;
-  type: "watch" | "strap" | "band";
-  signalStrength: number;
-}
-
-export default function WearableSync({ onSyncComplete, isSynced }: WearableSyncProps) {
-  const [status, setStatus] = useState<"idle" | "searching" | "connecting" | "syncing" | "completed">("idle");
-  const [foundDevices, setFoundDevices] = useState<Device[]>([]);
-  const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
+export default function WearableSync({ onSyncComplete, isSynced }) {
+  const [status, setStatus] = useState("idle");
+  const [foundDevices, setFoundDevices] = useState([]);
+  const [selectedDevice, setSelectedDevice] = useState(null);
   const [syncProgress, setSyncProgress] = useState(0);
-  const [syncLogs, setSyncLogs] = useState<string[]>([]);
+  const [syncLogs, setSyncLogs] = useState([]);
 
   // Simulate device searching
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout;
     if (status === "searching") {
       timeout = setTimeout(() => {
         setFoundDevices([
@@ -34,7 +22,6 @@ export default function WearableSync({ onSyncComplete, isSynced }: WearableSyncP
           { id: "gm-f", name: "Garmin Forerunner 965", type: "watch", signalStrength: 72 }
         ]);
         setStatus("idle");
-        // Open device selection
       }, 2000);
     }
     return () => clearTimeout(timeout);
@@ -42,7 +29,7 @@ export default function WearableSync({ onSyncComplete, isSynced }: WearableSyncP
 
   // Simulate syncing process
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval;
     if (status === "syncing") {
       setSyncProgress(0);
       setSyncLogs(["[03:15:20] Initializing BLE secured handshake...", "[03:15:21] Querying local epoch data indexes..."]);
@@ -78,7 +65,6 @@ export default function WearableSync({ onSyncComplete, isSynced }: WearableSyncP
             });
 
             // Trigger parent event to update global metrics
-            // Confers optimal values
             setTimeout(() => {
               onSyncComplete(94, 44, 95);
             }, 1000);
@@ -98,7 +84,7 @@ export default function WearableSync({ onSyncComplete, isSynced }: WearableSyncP
     setSyncLogs([]);
   };
 
-  const connectAndSync = (device: Device) => {
+  const connectAndSync = (device) => {
     setSelectedDevice(device);
     setStatus("syncing");
   };

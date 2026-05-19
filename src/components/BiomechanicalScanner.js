@@ -2,25 +2,20 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { Play, Pause, Activity, Cpu, RotateCcw, AlertTriangle, ShieldCheck } from "lucide-react";
-import { Athlete } from "@/lib/mockData";
 
-interface ScannerProps {
-  athlete: Athlete;
-}
-
-export default function BiomechanicalScanner({ athlete }: ScannerProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+export default function BiomechanicalScanner({ athlete }) {
+  const canvasRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(true);
-  const [speed, setSpeed] = useState<number>(0.5); // 0.5x default slow-mo
+  const [speed, setSpeed] = useState(0.5); // 0.5x default slow-mo
   const [showSkeleton, setShowSkeleton] = useState(true);
   const [showVectorForce, setShowVectorForce] = useState(true);
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
-  const [diagnosticResult, setDiagnosticResult] = useState<string | null>(null);
+  const [diagnosticResult, setDiagnosticResult] = useState(null);
 
   // Running animation loop variables
-  const frameRef = useRef<number>(0);
-  const animationTimeRef = useRef<number>(0);
+  const frameRef = useRef(0);
+  const animationTimeRef = useRef(0);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -28,8 +23,6 @@ export default function BiomechanicalScanner({ athlete }: ScannerProps) {
 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-
-    let animationId: number;
 
     const render = () => {
       // Clear canvas
@@ -202,7 +195,7 @@ export default function BiomechanicalScanner({ athlete }: ScannerProps) {
 
         // Draw Joint nodes
         ctx.fillStyle = "var(--color-navy)";
-        const drawJoint = (x: number, y: number, r = 6) => {
+        const drawJoint = (x, y, r = 6) => {
           ctx.beginPath();
           ctx.arc(x, y, r, 0, Math.PI * 2);
           ctx.fill();
@@ -325,7 +318,7 @@ export default function BiomechanicalScanner({ athlete }: ScannerProps) {
 
   // Handle Scanning Progression
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval;
     if (isScanning) {
       interval = setInterval(() => {
         setScanProgress((prev) => {

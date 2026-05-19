@@ -1,19 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { Athlete } from "@/lib/mockData";
 import WearableSync from "@/components/WearableSync";
-import { Sparkles, Trophy, Zap, Flame, Droplet, Moon, Heart, LineChart, Target, Compass } from "lucide-react";
+import { Trophy, Zap, Flame, Droplet, Moon, Heart, LineChart, Target } from "lucide-react";
 import { LineChart as RechartsLineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 
-interface AthleteDashboardProps {
-  athlete: Athlete;
-  onUpdateAthleteStats: (hrv: number, rhr: number, sleep: number) => void;
-  isWearableSynced: boolean;
-}
-
-export default function AthleteDashboard({ athlete, onUpdateAthleteStats, isWearableSynced }: AthleteDashboardProps) {
-  const [activeTab, setActiveTab] = useState<"readiness" | "speed" | "agility" | "endurance">("readiness");
+export default function AthleteDashboard({ athlete, onUpdateAthleteStats, isWearableSynced }) {
+  const [activeTab, setActiveTab] = useState("readiness");
 
   // Format historical chart data
   const chartData = athlete.history.weeks.map((week, idx) => ({
@@ -31,7 +24,7 @@ export default function AthleteDashboard({ athlete, onUpdateAthleteStats, isWear
     { id: "g4", label: "Lactate threshold tempo intervals", done: false }
   ]);
 
-  const toggleGoal = (id: string) => {
+  const toggleGoal = (id) => {
     setGoals((prev) =>
       prev.map((g) => (g.id === id ? { ...g, done: !g.done } : g))
     );
@@ -368,10 +361,9 @@ export default function AthleteDashboard({ athlete, onUpdateAthleteStats, isWear
       {/* AI Suggested Workouts advice strip */}
       <div className="bg-navy text-white rounded-2xl p-6 flex flex-col gap-4 shadow-sm relative overflow-hidden">
         {/* Visual elements */}
-        <div className="absolute top-0 right-0 w-[40%] aspect-square bg-[radial-gradient(circle_at_top_right,rgba(197,168,128,0.2),transparent_70%)] rounded-full pointer-events-none animate-pulse" />
+        <div className="absolute top-0 right-0 w-[40%] aspect-square bg-[radial-gradient(circle_at_top_right,rgba(197,168,128,0.2),transparent_70%)] rounded-full pointer-events-none" />
         
         <div className="flex items-center gap-2 border-b border-white/10 pb-3 z-10">
-          <Sparkles size={15} className="text-champagne animate-pulse" />
           <span className="text-xs font-outfit font-bold uppercase tracking-wider text-champagne">
             Predictive AI Insights & Advisor
           </span>

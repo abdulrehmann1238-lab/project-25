@@ -1,19 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Athlete } from "@/lib/mockData";
 import BiomechanicalScanner from "@/components/BiomechanicalScanner";
-import { Cpu, Send, Sparkles, Download, CheckSquare, RefreshCw, Compass, ShieldCheck } from "lucide-react";
+import { Cpu, Send, Sparkles, Download, RefreshCw, Compass, ShieldCheck } from "lucide-react";
 
-interface InsightsProps {
-  athlete: Athlete;
-}
-
-export default function InsightsDashboard({ athlete }: InsightsProps) {
-  const [activeTab, setActiveTab] = useState<"video" | "ai" | "reports" | "gps">("video");
+export default function InsightsDashboard({ athlete }) {
+  const [activeTab, setActiveTab] = useState("video");
   
   // AI Advisor States
-  const [messages, setMessages] = useState<{ sender: "user" | "ai"; content: string }[]>([
+  const [messages, setMessages] = useState([
     {
       sender: "ai",
       content: `Welcome, Coach. I am ready to analyze physiological and structural trends for ${athlete.name}. Ask me about training adaptation, load balance, or injury prevention.`
@@ -27,7 +22,7 @@ export default function InsightsDashboard({ athlete }: InsightsProps) {
     `Propose hamstring recovery active steps.`
   ];
 
-  const handleQuery = (query: string) => {
+  const handleQuery = (query) => {
     // Add user message
     setMessages((m) => [...m, { sender: "user", content: query }]);
     setIsTyping(true);
@@ -50,7 +45,7 @@ export default function InsightsDashboard({ athlete }: InsightsProps) {
 
   // Report States
   const [reportProgress, setReportProgress] = useState(0);
-  const [reportState, setReportState] = useState<"idle" | "generating" | "done">("idle");
+  const [reportState, setReportState] = useState("idle");
 
   const generateReport = () => {
     setReportState("generating");
@@ -88,7 +83,7 @@ export default function InsightsDashboard({ athlete }: InsightsProps) {
   ];
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval;
     if (activeTab === "gps") {
       interval = setInterval(() => {
         setGpsFrame((f) => (f + 1) % gpsPath.length);
@@ -153,7 +148,6 @@ export default function InsightsDashboard({ athlete }: InsightsProps) {
             <span className="text-[10px] font-outfit uppercase tracking-widest text-slate-gray font-bold">Vector Skeletal Scan</span>
             <h3 className="text-base font-outfit font-extrabold text-graphite">AI Skeletal Node Reconstruction</h3>
           </div>
-          {/* Embed BiomechanicalScanner component */}
           <BiomechanicalScanner athlete={athlete} />
         </div>
       )}

@@ -1,20 +1,15 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Athlete, mockAthletes, mockSessions, TrainingSession } from "@/lib/mockData";
-import { Users, AlertTriangle, CheckCircle, ShieldAlert, Award, Calendar, Play, Radio, Map, Heart, Edit } from "lucide-react";
+import { mockAthletes, mockSessions } from "@/lib/mockData";
+import { Users, AlertTriangle, ShieldAlert, Calendar, Radio, Edit } from "lucide-react";
 
-interface CoachDashboardProps {
-  onSelectAthlete: (athleteId: string) => void;
-  activeAthlete: Athlete;
-}
-
-export default function CoachDashboard({ onSelectAthlete, activeAthlete }: CoachDashboardProps) {
-  const [selectedSquad, setSelectedSquad] = useState<string>("All Squads");
-  const [activeTab, setActiveTab] = useState<"roster" | "live" | "playbook">("roster");
+export default function CoachDashboard({ onSelectAthlete, activeAthlete }) {
+  const [selectedSquad, setSelectedSquad] = useState("All Squads");
+  const [activeTab, setActiveTab] = useState("roster");
   
   // Tactical Board States
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef(null);
   const [isDrawing, setIsDrawing] = useState(false);
   const [color, setColor] = useState("var(--color-navy)");
 
@@ -82,7 +77,7 @@ export default function CoachDashboard({ onSelectAthlete, activeAthlete }: Coach
   }, [activeTab]);
 
   // Drawing handlers on tactical playbook
-  const startDrawing = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const startDrawing = (e) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
@@ -100,7 +95,7 @@ export default function CoachDashboard({ onSelectAthlete, activeAthlete }: Coach
     setIsDrawing(true);
   };
 
-  const draw = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const draw = (e) => {
     if (!isDrawing) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -375,7 +370,7 @@ export default function CoachDashboard({ onSelectAthlete, activeAthlete }: Coach
               <div className="grid grid-cols-2 gap-4 mt-8">
                 <div className="flex flex-col bg-white p-3 rounded-xl border border-card-border/80">
                   <span className="text-[9px] font-outfit uppercase tracking-widest text-slate-gray flex items-center gap-1">
-                    <Heart size={10} className="text-crimson animate-pulse" /> Live Pulse
+                    <Activity size={10} className="text-crimson animate-pulse" /> Live Pulse
                   </span>
                   <span className="text-xl font-outfit font-bold text-graphite mt-1">{pulseHeartRate} bpm</span>
                 </div>

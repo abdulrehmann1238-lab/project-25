@@ -1,75 +1,4 @@
-export interface Athlete {
-  id: string;
-  name: string;
-  age: number;
-  sport: string;
-  squad: string;
-  avatar: string;
-  role: string;
-  
-  // Physiological Telemetry
-  readinessScore: number;       // 0-100
-  hrv: number;                  // Heart Rate Variability (ms)
-  rhr: number;                  // Resting Heart Rate (bpm)
-  sleepScore: number;           // 0-100
-  sleepHours: number;           // hours
-  sleepEfficiency: number;      // %
-  hydrationLevel: number;       // 0-100
-  vo2Max: number;               // ml/kg/min
-  muscleFatigue: number;        // 0-100
-  jointSoreness: number;        // 0-100
-  trainingLoadStatus: "Optimal" | "Overreaching" | "Recovery" | "Under-training";
-  weeklyWorkload: number;       // Arbitrary load units
-  injuryRisk: "Low" | "Medium" | "High";
-  injuryDetails?: string;
-
-  // Athletic Metrics
-  topSpeed: number;             // km/h
-  acceleration: number;         // m/s^2
-  sprintSplit10m: number;        // seconds
-  sprintSplit30m: number;        // seconds
-  agilityTTest: number;         // seconds
-  reactiveAgility: number;      // ms delay
-  enduranceBeepTest: number;    // Level
-  aerobicThreshold: number;     // bpm
-  anaerobicThreshold: number;   // bpm
-  jumpHeight: number;           // cm
-  
-  // Biomechanical Stats
-  hipFlexionAngle: number;      // degrees
-  kneeExtensionAngle: number;   // degrees
-  groundContactTime: number;    // ms
-  strideLength: number;         // meters
-  strideFrequency: number;      // Hz
-  
-  // Nutrition & Academic Stats
-  nutritionMacros: {
-    protein: number;            // grams
-    carbs: number;              // grams
-    fats: number;               // grams
-    calories: number;           // kcal
-    waterIntake: number;        // Liters
-    waterTarget: number;        // Liters
-  };
-  academicScore: number;        // GPA / Performance score (0-100)
-  studyHours: number;           // hours per week
-  socialScore: number;          // Mental balance (0-100)
-  
-  // AI recommendations
-  aiAdvice: string;
-  aiSuggestedWorkouts: string[];
-  
-  // Progress Timelines (History over 6 weeks)
-  history: {
-    weeks: string[];
-    readiness: number[];
-    workload: number[];
-    speed: number[];
-    sleep: number[];
-  };
-}
-
-export const mockAthletes: Athlete[] = [
+export const mockAthletes = [
   {
     id: "marcus-vance",
     name: "Marcus Vance",
@@ -317,17 +246,7 @@ export const mockAthletes: Athlete[] = [
   }
 ];
 
-export interface Message {
-  id: string;
-  sender: string;
-  role: "Coach" | "Parent" | "Athlete" | "AI Advisor";
-  avatar: string;
-  content: string;
-  timestamp: string;
-  read: boolean;
-}
-
-export const mockMessages: Message[] = [
+export const mockMessages = [
   {
     id: "msg-1",
     sender: "Coach Henderson",
@@ -366,16 +285,7 @@ export const mockMessages: Message[] = [
   }
 ];
 
-export interface TrainingSession {
-  id: string;
-  time: string;
-  title: string;
-  type: "Speed" | "Endurance" | "Recovery" | "Screening";
-  attendees: number;
-  duration: string;
-}
-
-export const mockSessions: TrainingSession[] = [
+export const mockSessions = [
   {
     id: "sess-1",
     time: "09:00 AM - 10:30 AM",

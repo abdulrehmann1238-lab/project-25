@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Athlete, mockAthletes } from "@/lib/mockData";
+import { mockAthletes } from "@/lib/mockData";
 import LandingPage from "@/components/views/LandingPage";
 import CoachDashboard from "@/components/views/CoachDashboard";
 import AthleteDashboard from "@/components/views/AthleteDashboard";
@@ -10,18 +10,14 @@ import InsightsDashboard from "@/components/views/InsightsDashboard";
 import Utilities from "@/components/views/Utilities";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
-  Trophy, Zap, Shield, Cpu, Sparkles, Activity, Menu, X, ChevronRight, User, LogOut, Radio
+  Trophy, Zap, Shield, Cpu, Activity, LogOut, ChevronRight
 } from "lucide-react";
 
-type ViewState = "loading" | "landing" | "app";
-type UserRole = "Coach" | "Athlete" | "Parent" | "Insights" | "Settings";
-
 export default function Home() {
-  const [viewState, setViewState] = useState<ViewState>("loading");
-  const [activeRole, setActiveRole] = useState<UserRole>("Coach");
-  const [activeAthleteId, setActiveAthleteId] = useState<string>("marcus-vance");
+  const [viewState, setViewState] = useState("loading");
+  const [activeRole, setActiveRole] = useState("Coach");
+  const [activeAthleteId, setActiveAthleteId] = useState("marcus-vance");
   const [isWearableSynced, setIsWearableSynced] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Cinematic preloader metric states
   const [bootProgress, setBootProgress] = useState(0);
@@ -29,7 +25,7 @@ export default function Home() {
   const [bootMetricSpeed, setBootMetricSpeed] = useState(0);
 
   // Get active athlete data
-  const [athletesData, setAthletesData] = useState<Athlete[]>(mockAthletes);
+  const [athletesData, setAthletesData] = useState(mockAthletes);
   const activeAthlete = athletesData.find((a) => a.id === activeAthleteId) || athletesData[0];
 
   // Cinematic Boot Loader ticks
@@ -58,7 +54,7 @@ export default function Home() {
   }, [viewState]);
 
   // Sync complete callback from WearableSync component
-  const handleUpdateAthleteStats = (hrv: number, rhr: number, sleep: number) => {
+  const handleUpdateAthleteStats = (hrv, rhr, sleep) => {
     setIsWearableSynced(true);
     
     // Update active athlete's baseline stats in state to simulate true reactive dashboard
@@ -79,7 +75,7 @@ export default function Home() {
     );
   };
 
-  const handleEnterDemo = (role: "Coach" | "Athlete" | "Parent") => {
+  const handleEnterDemo = (role) => {
     setActiveRole(role);
     setViewState("app");
   };

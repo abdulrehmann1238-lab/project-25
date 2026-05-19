@@ -1,14 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowRight, Trophy, Zap, Shield, Sparkles, TrendingUp, Heart, ChevronLeft, ChevronRight, Activity } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Trophy, Zap, Shield, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
-interface LandingPageProps {
-  onEnterDemo: (role: "Coach" | "Athlete" | "Parent") => void;
-}
-
-export default function LandingPage({ onEnterDemo }: LandingPageProps) {
+export default function LandingPage({ onEnterDemo }) {
   const [testimonialIdx, setTestimonialIdx] = useState(0);
 
   const testimonials = [

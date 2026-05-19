@@ -1,16 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { Message, mockMessages } from "@/lib/mockData";
+import { mockMessages } from "@/lib/mockData";
 import { MessageSquare, Bell, Settings, Send, User, CheckCircle2, ShieldCheck, CreditCard, ChevronRight } from "lucide-react";
 
 export default function Utilities() {
-  const [activeTab, setActiveTab] = useState<"messages" | "notifications" | "settings">("messages");
-  const [inboxMessages, setInboxMessages] = useState<Message[]>(mockMessages);
-  const [activeMessage, setActiveMessage] = useState<Message>(mockMessages[0]);
+  const [activeTab, setActiveTab] = useState("messages");
+  const [inboxMessages, setInboxMessages] = useState(mockMessages);
+  const [activeMessage, setActiveMessage] = useState(mockMessages[0]);
   const [replyText, setReplyText] = useState("");
 
-  const handleSelectMessage = (msg: Message) => {
+  const handleSelectMessage = (msg) => {
     setActiveMessage(msg);
     setInboxMessages((prev) =>
       prev.map((m) => (m.id === msg.id ? { ...m, read: true } : m))
@@ -21,7 +21,7 @@ export default function Utilities() {
     if (!replyText.trim()) return;
     
     // Add reply message mock
-    const newMsg: Message = {
+    const newMsg = {
       id: `msg-reply-${Date.now()}`,
       sender: "You (Admin)",
       role: "Coach",
@@ -31,7 +31,6 @@ export default function Utilities() {
       read: true
     };
     
-    // Alert feedback simulation could go here
     setReplyText("");
     alert("Reply dispatched securely to recipient.");
   };
