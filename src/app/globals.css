@@ -1,0 +1,139 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FAF7F2;
+  --foreground: #1E2229;
+  
+  --card-bg: #FFFFFF;
+  --card-border: #EFECE6;
+  
+  --color-oatmeal: #F3EFE9;
+  --color-graphite: #1E2229;
+  --color-slate-gray: #4A5260;
+  
+  /* Premium sports academy accents */
+  --color-champagne: #C5A880;
+  --color-gold: #D4AF37;
+  
+  /* Physiological indicators (Muted, organic tones - NO cyberpunk neon) */
+  --color-sage: #5A7E64;      /* High readiness / optimal recovery */
+  --color-amber: #D19451;     /* Elevated load / fatigue */
+  --color-crimson: #B65454;   /* Overload risk / restricted */
+  --color-navy: #16243A;      /* Deep luxurious sports brand */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-oatmeal: var(--color-oatmeal);
+  --color-graphite: var(--color-graphite);
+  --color-slate-gray: var(--color-slate-gray);
+  --color-champagne: var(--color-champagne);
+  --color-gold: var(--color-gold);
+  --color-sage: var(--color-sage);
+  --color-amber: var(--color-amber);
+  --color-crimson: var(--color-crimson);
+  --color-navy: var(--color-navy);
+  
+  --animate-telemetry-scan: scan 8s linear infinite;
+  --animate-kinetic-pulse: kinetic-pulse 3s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+@keyframes kinetic-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.4; }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom premium scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: #E0DACF;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-champagne);
+}
+
+/* Telemetry styling grids */
+.f1-grid {
+  background-image: 
+    linear-gradient(rgba(197, 168, 128, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(197, 168, 128, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.f1-scanner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(197, 168, 128, 0.08) 50%,
+    transparent 100%
+  );
+  animation: scan 4s linear infinite;
+  pointer-events: none;
+}
+
+/* Interactive Card System */
+.luxury-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 20px -2px rgba(30, 34, 41, 0.015), 0 2px 6px -1px rgba(30, 34, 41, 0.01);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  transform: translateY(-2px);
+  border-color: #D6CFBF;
+  box-shadow: 0 12px 30px -4px rgba(30, 34, 41, 0.03), 0 4px 12px -2px rgba(30, 34, 41, 0.02);
+}
+
+/* Smooth motion utilities */
+.reveal-text-mask {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Lenis smooth scrolling config */
+html.lenis {
+  height: auto;
+}
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
